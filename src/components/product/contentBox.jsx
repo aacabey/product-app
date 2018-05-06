@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import ReactStars from 'react-stars';
 import { Tab, Tabs } from 'material-ui';
 
-const ContentBox = ({ productDetail }) => {
+const ContentBox = ({ productDetail, selectedVariant }) => {
     if (!productDetail) return null;
 
     return (
@@ -13,7 +13,7 @@ const ContentBox = ({ productDetail }) => {
             <ReactStars name="star" count={5}></ReactStars>
             <div>
                 <strong>
-                    <span>{productDetail.baremList[0].price} TL</span>
+                    <span>{productDetail.baremList[productDetail.baremList.length - 1].price} TL - {productDetail.baremList[0].price} TL</span>
                 </strong>
                 <span> /Adet</span>
             </div>
@@ -21,16 +21,17 @@ const ContentBox = ({ productDetail }) => {
             <div style={{ marginBottom: 25, marginTop: 25 }}>
                 {
                     productDetail.selectableAttributes.map((attribute, index) => {
+                        let value = selectedVariant.attributes.find(x => x.name == attribute.name).value;
                         return <div key={attribute.name} style={{ display: "flex", alignItems: "flex-end", padding: 5 }}>
                             <span style={{ width: 55 }}>{attribute.name}: </span>
-                            <Tabs key={attribute.name + index} value={attribute.values[0]} style={{ flexBasis: "100%" }}>
+                            <Tabs key={attribute.name + index} value={value} style={{ flexBasis: "100%" }}>
                                 {
                                     attribute.values.map((value, index) => {
                                         return <Tab
                                             key={value + index}
                                             label={value}
                                             value={value}
-                                            onClick={() => { }}
+                                            onClick={() => this.props.changeSelectedVariant()}
                                             style={{ textTransform: "none" }} />
                                     })
                                 }
@@ -44,7 +45,9 @@ const ContentBox = ({ productDetail }) => {
 }
 
 ContentBox.propTypes = {
-    productDetail: PropTypes.object
+    productDetail: PropTypes.object,
+    selectedVariant: PropTypes.object,
+    changeSelectedVariant: PropTypes.func
 };
 
 export default ContentBox;

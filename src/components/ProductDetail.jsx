@@ -44,7 +44,7 @@ class ProductDetailComponent extends React.Component {
         return (
             <Paper style={{ display: "flex", padding: 50 }}>
                 <ImageGalleryBox imageList={selectedVariant ? selectedVariant.images : []} />
-                <ContentBox productDetail={productDetail} />
+                <ContentBox productDetail={productDetail} selectedVariant={selectedVariant} />
             </Paper>
         )
     }
