@@ -10,7 +10,6 @@ export class GetProductDetail extends AsyncAction {
             ProductService.getProductDetail()
                 .then(response => {
                     dispatch(new SetProductDetail(response))
-                    console.log(response)
                 })
                 .catch(() => {
                     dispatch(new ShowMessage("Connection problem"))

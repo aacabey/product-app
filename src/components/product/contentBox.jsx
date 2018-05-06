@@ -2,7 +2,8 @@ import * as React from 'react';
 import PropTypes from "prop-types";
 
 import ReactStars from 'react-stars';
-import { Tab, Tabs } from 'material-ui';
+import { Tab, Tabs, RaisedButton } from 'material-ui';
+import { Form, TextField } from 'form-ts'
 
 const ContentBox = ({ productDetail, selectedVariant }) => {
     if (!productDetail) return null;
@@ -39,6 +40,28 @@ const ContentBox = ({ productDetail, selectedVariant }) => {
                         </div>
                     })
                 }
+            </div>
+            <div>
+                <Form
+                    errorMessages={{
+                        Required: "Lütfen adet giriniz.",
+                        LessThanMinValue: "{0} adetten daha az alamazsınız.",
+                        MoreThanMaxValue: "{0} adetten daha fazla alamazsınız.",
+                        InvalidNumber: "Lütfen geçerli bir sayı giriniz."
+                    }}
+                    style={{ padding: "unset" }}>
+                    <TextField
+                        name="quantity"
+                        floatingLabelText="Adet"
+                        defaultValue={productDetail.baremList[0].minimumQuantity}
+                        validator={["required", "integer", { min: productDetail.baremList[0].minimumQuantity, max: productDetail.baremList[productDetail.baremList.length - 1].maximumQuantity }]}
+                    />
+                    <RaisedButton
+                        className="add-item"
+                        primary={true}
+                        label="Sepete Ekle"
+                        key="submit" />
+                </Form>
             </div>
         </div>
     );
