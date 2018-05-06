@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Product</title>
+    <meta name="description" content="Product Detail">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/html" href="node_modules/react-star-rating/dist/css/react-star-rating.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1">
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <body>
+        <div id="app"></div>
+        <script id="clear-storage">
+            var keys = { ctrl: false, alt: false, enter: false };
+            var clearKeys = function () { keys.ctrl = keys.alt = keys.enter = false; };
+            var handler = function (event) {
+                var key = event.keyCode;
+                var i = key == 17 ? "ctrl" : key == 18 ? "alt" : key == 13 ? "enter" : "";
+                keys[i] = event.type === "keydown";
+
+                if (keys.ctrl && keys.alt && keys.enter) {
+                    localStorage.clear();
+                    clearKeys();
+                    alert("Product: Storage cleared");
+                }
+            };
+            ['keydown', 'keyup'].forEach(function (event) { document.addEventListener(event, handler); });
+            document.addEventListener("focusout", clearKeys);
+        </script>
+        <script src="app.js"></script>
+    </body>
+
+</html>
